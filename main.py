@@ -4,11 +4,9 @@ import nltk
 import genanki
 import random
 from mtranslate import translate
-from nltk import PorterStemmer, SnowballStemmer, WordNetLemmatizer
+from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-porter = PorterStemmer
-snowball_stem = SnowballStemmer('english')
 lemmatizer = WordNetLemmatizer()
 nltk.download('wordnet')
 nltk.download('stopwords')
