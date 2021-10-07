@@ -4,11 +4,9 @@ import nltk
 import genanki
 import random
 from mtranslate import translate
-from nltk import PorterStemmer, SnowballStemmer, WordNetLemmatizer
+from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-porter = PorterStemmer
-snowball_stem = SnowballStemmer('english')
 lemmatizer = WordNetLemmatizer()
 nltk.download('wordnet')
 nltk.download('stopwords')
@@ -21,24 +19,11 @@ def walk(directory):
             file = os.path.join(root, name)
             with open(file, 'r', encoding='utf-8') as f:
                 data = f.read()
-                to_anki(name=name, map=translator(analysis_new(data), "ru"))
+                to_anki(name=name, map=translator(analysis(data), "ru"))
             f.close()
 
 
 def analysis(text):
-    frequency = {}
-    matches = re.findall(r'\b[a-z]+\b', text, re.IGNORECASE)
-    for word in matches:
-        word = lemmatizer.lemmatize(word)
-        if frequency.get(word) is None:
-            frequency[word] = 1
-        else:
-            frequency[word] += 1
-    frequency_sorted = sorted(frequency.items(), key=lambda x: x[1], reverse=True)
-    return frequency_sorted
-
-
-def analysis_new(text):
     word_set = set()
     word_list = []
     matches = re.findall(r'\b[a-z]+\b', text, re.IGNORECASE)
